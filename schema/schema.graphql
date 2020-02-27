@@ -1,0 +1,106 @@
+schema {
+  query: RootQuery
+  mutation: RootMutation
+}
+
+input AddTodoInput {
+  title: String!
+  done: Boolean = true
+  clientMutationId: String
+}
+
+type AddTodoPayload {
+  todo: todosEdge
+  clientMutationId: String
+}
+
+input ChangeTodoDoneStatusInput {
+  id: String!
+  done: Boolean!
+  clientMutationId: String
+}
+
+type ChangeTodoDoneStatusPayload {
+  todo: Todo
+  clientMutationId: String
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type RootMutation {
+  """Add new todo"""
+  addTodo(input: AddTodoInput!): AddTodoPayload
+
+  """Change status of todo"""
+  changeTodoDoneStatus(input: ChangeTodoDoneStatusInput!): ChangeTodoDoneStatusPayload
+}
+
+type RootQuery {
+  """Fetches list of todos"""
+  todos(
+    """Filter todo by its title"""
+    searchByTitle: String
+
+    """Filter todo by its status"""
+    done: Boolean
+    after: String
+    first: Int
+    before: String
+    last: Int
+  ): todosConnection
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+"""Details of a todo"""
+type Todo implements Node {
+  """The ID of an object"""
+  id: ID!
+
+  """Title of todo"""
+  title: String
+
+  """Status of todo"""
+  done: Boolean
+}
+
+"""A connection to a list of items."""
+type todosConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [todosEdge]
+}
+
+"""An edge in a connection."""
+type todosEdge {
+  """The item at the end of the edge"""
+  node: Todo
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
