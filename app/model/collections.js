@@ -1,3 +1,4 @@
 module.exports = {
-	TODOS: 'todos'
+	CATEGORIES: 'categories',
+	ARTICLES: 'articles'
 };
