@@ -1,7 +1,6 @@
 const {
 	GraphQLObjectType,
 	GraphQLString,
-	GraphQLBoolean
 } = require('graphql');
 
 const {
@@ -13,19 +12,14 @@ const COLLECTIONS = require('../model/collections');
 
 module.exports = (nodeInterface) => {
 	return new GraphQLObjectType({
-		name: 'Todo',
-		description: "Details of a todo",
+		name: 'Category',
+		description: "Details of a category",
 		fields: () => ({
-			id: globalIdField(COLLECTIONS.TODOS, (obj) => obj._id),
+			id: globalIdField(COLLECTIONS.CATEGORIES, (obj) => obj._id),
 			title: {
 				type: GraphQLString,
-				description: "Title of todo",
+				description: "Title of category",
 				resolve: (obj) => obj.title
-			},
-			done: {
-				type: GraphQLBoolean,
-				description: "Status of todo",
-				resolve: (obj) => obj.done
 			}
 		}),
 		interfaces: [nodeInterface]

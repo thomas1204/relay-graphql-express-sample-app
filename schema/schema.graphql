@@ -3,26 +3,41 @@ schema {
   mutation: RootMutation
 }
 
-input AddTodoInput {
+input AddCategoryInput {
   title: String!
-  done: Boolean = true
   clientMutationId: String
 }
 
-type AddTodoPayload {
-  todo: todosEdge
+type AddCategoryPayload {
+  category: categoriesEdge
   clientMutationId: String
 }
 
-input ChangeTodoDoneStatusInput {
-  id: String!
-  done: Boolean!
-  clientMutationId: String
+"""A connection to a list of items."""
+type categoriesConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [categoriesEdge]
 }
 
-type ChangeTodoDoneStatusPayload {
-  todo: Todo
-  clientMutationId: String
+"""An edge in a connection."""
+type categoriesEdge {
+  """The item at the end of the edge"""
+  node: Category
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""Details of a category"""
+type Category implements Node {
+  """The ID of an object"""
+  id: ID!
+
+  """Title of category"""
+  title: String
 }
 
 """An object with an ID"""
@@ -47,60 +62,24 @@ type PageInfo {
 }
 
 type RootMutation {
-  """Add new todo"""
-  addTodo(input: AddTodoInput!): AddTodoPayload
-
-  """Change status of todo"""
-  changeTodoDoneStatus(input: ChangeTodoDoneStatusInput!): ChangeTodoDoneStatusPayload
+  """Adds new category"""
+  AddCategory(input: AddCategoryInput!): AddCategoryPayload
 }
 
 type RootQuery {
-  """Fetches list of todos"""
-  todos(
-    """Filter todo by its title"""
+  """Fetches list of categories"""
+  CategoryList(
+    """Filter category by its title"""
     searchByTitle: String
-
-    """Filter todo by its status"""
-    done: Boolean
     after: String
     first: Int
     before: String
     last: Int
-  ): todosConnection
+  ): categoriesConnection
 
   """Fetches an object given its ID"""
   node(
     """The ID of an object"""
     id: ID!
   ): Node
-}
-
-"""Details of a todo"""
-type Todo implements Node {
-  """The ID of an object"""
-  id: ID!
-
-  """Title of todo"""
-  title: String
-
-  """Status of todo"""
-  done: Boolean
-}
-
-"""A connection to a list of items."""
-type todosConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [todosEdge]
-}
-
-"""An edge in a connection."""
-type todosEdge {
-  """The item at the end of the edge"""
-  node: Todo
-
-  """A cursor for use in pagination"""
-  cursor: String!
 }
