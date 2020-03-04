@@ -1,12 +1,19 @@
 const {GraphQLObjectType} = require('graphql');
 
 //  CONTROLLER
-const CategoryController = require('./controller/category.controller');
+const CATEGORY_CONTROLLER = require('./controller/category.controller');
+const ARTICLE_CONTROLLER = require('./controller/article.controller');
 
+
+/**
+ * Root mutation
+ * @type {GraphQLObjectType<any, any, {[p: string]: any}>}
+ */
 const Mutations = new GraphQLObjectType({
 	name: "RootMutation",
 	fields: () => ({
-		AddCategory: CategoryController.AddCategory
+		AddCategory: CATEGORY_CONTROLLER.AddCategory,
+		AddArticle: ARTICLE_CONTROLLER.AddArticle
 	})
 });
 

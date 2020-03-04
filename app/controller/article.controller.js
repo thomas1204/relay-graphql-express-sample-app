@@ -10,12 +10,16 @@ const {
 	connectionDefinitions,
 	connectionFromPromisedArray,
 	mutationWithClientMutationId,
-	offsetToCursor
+	offsetToCursor,
+	fromGlobalId
 } = require('graphql-relay');
 
 
 // Article Type
 const {ArticleType} = require('../type/type');
+
+// Article Inputs
+const {AddArticleInput} = require('../input/article.inputs');
 
 const {
 	connectionType: ArticleConnection,
@@ -61,6 +65,54 @@ const ArticleList = {
 	}
 };
 
+
+const AddArticle = mutationWithClientMutationId(
+	{
+		name: "AddArticle",
+		description: "Adds new article",
+		inputFields: AddArticleInput,
+		outputFields: {
+			category: {
+				type: ArticleEdge,
+				resolve: (payload) => {
+					return new Promise((resolve, reject) => {
+						DB.COUNT(COLLECTIONS.ARTICLES, {}, (err, count) => {
+							if (err) {
+								reject(err)
+							} else {
+								resolve({
+									cursor: offsetToCursor(count - 1),
+									node: {
+										_id: payload._id,
+										title: payload.title,
+										content: payload.content,
+										category: payload.category,
+									}
+								});
+							}
+						});
+					})
+				}
+			}
+		},
+		mutateAndGetPayload: (articleInput) => {
+			return new Promise((resolve, reject) => {
+				const GLOBAL_ID = fromGlobalId(articleInput.category);
+				articleInput.category = GLOBAL_ID.id;
+				DB.INSERT(COLLECTIONS.ARTICLES, articleInput, (err, doc) => {
+					if (err) {
+						reject(err)
+					} else {
+						resolve(doc)
+					}
+				})
+			})
+		}
+	}
+);
+
+
 module.exports = {
-	ArticleList
+	ArticleList,
+	AddArticle
 };
