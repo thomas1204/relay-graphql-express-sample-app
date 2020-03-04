@@ -1,0 +1,51 @@
+html, body, #root {
+	font-family: 'Lato', sans-serif;
+	background-color: #ffffff;
+	color: #484848;
+	height: 100vh;
+}
+
+#homeView .customNavBar {
+	background-color: #ffffff !important;
+	border-bottom: 1px solid #eeeeee;
+}
+
+#homeView .customNavBar .navbar-brand {
+	color: #484848 !important;
+	font-size: 18px;
+}
+
+#homeView #wrapper {
+	display: flex;
+	justify-content: center;
+	padding: 100px 40px 30px;
+}
+
+#homeView #wrapper #content {
+	border: 1px solid #eeeeee;
+}
+
+#homeView #wrapper #content #sidebar {
+	background-color: #f5f5f5;
+	border-right: 1px solid #eeeeee;
+	padding: 20px 10px 0;
+}
+
+#homeView #wrapper #content #sidebar .articlesList .article {
+	border-bottom: 1px solid #eee;
+}
+
+#homeView #wrapper #content #sidebar .articlesList .article button {
+	padding: 10px;
+	color: #484848;
+	font-size: 16px;
+	background-color: transparent;
+	border: 0;
+	width: 100%;
+	text-align: left;
+	outline: none !important;
+}
+
+#homeView #wrapper #content #main {
+	padding-top: 10px;
+}
