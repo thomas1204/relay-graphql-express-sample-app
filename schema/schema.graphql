@@ -3,6 +3,18 @@ schema {
   mutation: RootMutation
 }
 
+input AddArticleInput {
+  title: String!
+  content: String!
+  category: ID!
+  clientMutationId: String
+}
+
+type AddArticlePayload {
+  category: articlesEdge
+  clientMutationId: String
+}
+
 input AddCategoryInput {
   title: String!
   clientMutationId: String
@@ -11,6 +23,39 @@ input AddCategoryInput {
 type AddCategoryPayload {
   category: categoriesEdge
   clientMutationId: String
+}
+
+"""Details of a articles"""
+type Article implements Node {
+  """The ID of an object"""
+  id: ID!
+
+  """Title of article"""
+  title: String
+
+  """Content of article"""
+  content: String
+
+  """Details of category"""
+  category: Category
+}
+
+"""A connection to a list of items."""
+type articlesConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [articlesEdge]
+}
+
+"""An edge in a connection."""
+type articlesEdge {
+  """The item at the end of the edge"""
+  node: Article
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 """A connection to a list of items."""
@@ -64,6 +109,9 @@ type PageInfo {
 type RootMutation {
   """Adds new category"""
   AddCategory(input: AddCategoryInput!): AddCategoryPayload
+
+  """Adds new article"""
+  AddArticle(input: AddArticleInput!): AddArticlePayload
 }
 
 type RootQuery {
@@ -76,6 +124,16 @@ type RootQuery {
     before: String
     last: Int
   ): categoriesConnection
+
+  """Fetches list of articles"""
+  ArticleList(
+    """Filter article by its title"""
+    searchByTitle: String
+    after: String
+    first: Int
+    before: String
+    last: Int
+  ): articlesConnection
 
   """Fetches an object given its ID"""
   node(
