@@ -2,7 +2,7 @@ const COLLECTIONS = require('../model/collections');
 const DB = require('../model/db');
 
 const {
-	GraphQLString,
+	GraphQLID
 } = require('graphql');
 
 const {
@@ -38,9 +38,9 @@ const ArticleList = {
 	description: "Fetches list of articles",
 	type: ArticleConnection,
 	args: {
-		searchByTitle: {
-			description: "Filter article by its title",
-			type: GraphQLString
+		searchByCategory: {
+			description: "Filter article by category",
+			type: GraphQLID
 		},
 		...connectionArgs
 	},
@@ -48,10 +48,10 @@ const ArticleList = {
 		return connectionFromPromisedArray(
 			new Promise((resolve, reject) => {
 				let cond = {};
-				if (args.searchByTitle !== undefined) cond['title'] = {
-					"$regex": `^${args.searchByTitle}`,
-					$options: 'i'
-				};
+				if (args.searchByCategory !== undefined) {
+					const GLOBAL_ID = fromGlobalId(args.searchByCategory);
+					cond['category'] = GLOBAL_ID.id
+				}
 				DB.GET(COLLECTIONS.ARTICLES, cond, (err, docs) => {
 					if (err) {
 						reject(err)
