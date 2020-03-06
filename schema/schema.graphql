@@ -127,8 +127,8 @@ type RootQuery {
 
   """Fetches list of articles"""
   ArticleList(
-    """Filter article by its title"""
-    searchByTitle: String
+    """Filter article by category"""
+    searchByCategory: ID
     after: String
     first: Int
     before: String

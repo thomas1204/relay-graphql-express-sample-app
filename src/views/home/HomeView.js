@@ -20,8 +20,12 @@ class HomeView extends Component {
 		selectedArticle: null
 	};
 	
-	SelectCategory = (categoryId) => {
-		this.setState({selectedCategory: categoryId})
+	SelectCategory = (selectedCategory) => {
+		this.setState({selectedCategory})
+	};
+	
+	SelectArticle = (selectedArticle) => {
+		this.setState({selectedArticle})
 	};
 	
 	render() {
@@ -76,8 +80,10 @@ class HomeView extends Component {
 														/>
 														
 														{
-															(this.state.selectedCategory !== "") &&
-															<ArticleList selectedCategory = {this.state.selectedCategory} />
+															(this.state.selectedCategory !== "") && <ArticleList
+																selectedCategory={this.state.selectedCategory}
+																SelectArticle={this.props.SelectArticle}
+															/>
 														}
 													</div>
 												</div>

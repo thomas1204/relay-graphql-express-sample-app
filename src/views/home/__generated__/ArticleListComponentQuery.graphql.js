@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 183283127ccaf4ff3c2727a6705ccf69
+ * @relayHash f47e10c1d5662a72ce4964458a661148
  */
 
 /* eslint-disable */
@@ -9,7 +9,9 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type ArticleListComponentQueryVariables = {||};
+export type ArticleListComponentQueryVariables = {|
+  SELECTED_CATEGORY?: ?string
+|};
 export type ArticleListComponentQueryResponse = {|
   +ArticleList: ?{|
     +edges: ?$ReadOnlyArray<?{|
@@ -28,8 +30,10 @@ export type ArticleListComponentQuery = {|
 
 
 /*
-query ArticleListComponentQuery {
-  ArticleList {
+query ArticleListComponentQuery(
+  $SELECTED_CATEGORY: ID
+) {
+  ArticleList(searchByCategory: $SELECTED_CATEGORY) {
     edges {
       node {
         id
@@ -43,11 +47,25 @@ query ArticleListComponentQuery {
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
+    "kind": "LocalArgument",
+    "name": "SELECTED_CATEGORY",
+    "type": "ID",
+    "defaultValue": null
+  }
+],
+v1 = [
+  {
     "kind": "LinkedField",
     "alias": null,
     "name": "ArticleList",
     "storageKey": null,
-    "args": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "searchByCategory",
+        "variableName": "SELECTED_CATEGORY"
+      }
+    ],
     "concreteType": "articlesConnection",
     "plural": false,
     "selections": [
@@ -97,25 +115,25 @@ return {
     "name": "ArticleListComponentQuery",
     "type": "RootQuery",
     "metadata": null,
-    "argumentDefinitions": [],
-    "selections": (v0/*: any*/)
+    "argumentDefinitions": (v0/*: any*/),
+    "selections": (v1/*: any*/)
   },
   "operation": {
     "kind": "Operation",
     "name": "ArticleListComponentQuery",
-    "argumentDefinitions": [],
-    "selections": (v0/*: any*/)
+    "argumentDefinitions": (v0/*: any*/),
+    "selections": (v1/*: any*/)
   },
   "params": {
     "operationKind": "query",
     "name": "ArticleListComponentQuery",
     "id": null,
-    "text": "query ArticleListComponentQuery {\n  ArticleList {\n    edges {\n      node {\n        id\n      }\n      cursor\n    }\n  }\n}\n",
+    "text": "query ArticleListComponentQuery(\n  $SELECTED_CATEGORY: ID\n) {\n  ArticleList(searchByCategory: $SELECTED_CATEGORY) {\n    edges {\n      node {\n        id\n      }\n      cursor\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '6ce24e2b2d09182ba7641cad1066c2fc';
+(node/*: any*/).hash = 'e0bb62c8fff01f930c00a7b1a51d49ea';
 
 module.exports = node;
