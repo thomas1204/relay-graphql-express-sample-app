@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash f47e10c1d5662a72ce4964458a661148
+ * @relayHash bb51c2e7758f71628ff9b1b82d9aa36d
  */
 
 /* eslint-disable */
@@ -9,6 +9,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type ArticleComponent_article$ref = any;
 export type ArticleListComponentQueryVariables = {|
   SELECTED_CATEGORY?: ?string
 |};
@@ -16,7 +17,8 @@ export type ArticleListComponentQueryResponse = {|
   +ArticleList: ?{|
     +edges: ?$ReadOnlyArray<?{|
       +node: ?{|
-        +id: string
+        +id: string,
+        +$fragmentRefs: ArticleComponent_article$ref,
       |},
       +cursor: string,
     |}>
@@ -37,10 +39,16 @@ query ArticleListComponentQuery(
     edges {
       node {
         id
+        ...ArticleComponent_article
       }
       cursor
     }
   }
+}
+
+fragment ArticleComponent_article on Article {
+  id
+  title
 }
 */
 
@@ -55,59 +63,25 @@ var v0 = [
 ],
 v1 = [
   {
-    "kind": "LinkedField",
-    "alias": null,
-    "name": "ArticleList",
-    "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "searchByCategory",
-        "variableName": "SELECTED_CATEGORY"
-      }
-    ],
-    "concreteType": "articlesConnection",
-    "plural": false,
-    "selections": [
-      {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "edges",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "articlesEdge",
-        "plural": true,
-        "selections": [
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "node",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "Article",
-            "plural": false,
-            "selections": [
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "name": "id",
-                "args": null,
-                "storageKey": null
-              }
-            ]
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "cursor",
-            "args": null,
-            "storageKey": null
-          }
-        ]
-      }
-    ]
+    "kind": "Variable",
+    "name": "searchByCategory",
+    "variableName": "SELECTED_CATEGORY"
   }
-];
+],
+v2 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
+  "args": null,
+  "storageKey": null
+},
+v3 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "cursor",
+  "args": null,
+  "storageKey": null
+};
 return {
   "kind": "Request",
   "fragment": {
@@ -116,24 +90,108 @@ return {
     "type": "RootQuery",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "ArticleList",
+        "storageKey": null,
+        "args": (v1/*: any*/),
+        "concreteType": "articlesConnection",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "edges",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "articlesEdge",
+            "plural": true,
+            "selections": [
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "node",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "Article",
+                "plural": false,
+                "selections": [
+                  (v2/*: any*/),
+                  {
+                    "kind": "FragmentSpread",
+                    "name": "ArticleComponent_article",
+                    "args": null
+                  }
+                ]
+              },
+              (v3/*: any*/)
+            ]
+          }
+        ]
+      }
+    ]
   },
   "operation": {
     "kind": "Operation",
     "name": "ArticleListComponentQuery",
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "ArticleList",
+        "storageKey": null,
+        "args": (v1/*: any*/),
+        "concreteType": "articlesConnection",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "edges",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "articlesEdge",
+            "plural": true,
+            "selections": [
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "node",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "Article",
+                "plural": false,
+                "selections": [
+                  (v2/*: any*/),
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "title",
+                    "args": null,
+                    "storageKey": null
+                  }
+                ]
+              },
+              (v3/*: any*/)
+            ]
+          }
+        ]
+      }
+    ]
   },
   "params": {
     "operationKind": "query",
     "name": "ArticleListComponentQuery",
     "id": null,
-    "text": "query ArticleListComponentQuery(\n  $SELECTED_CATEGORY: ID\n) {\n  ArticleList(searchByCategory: $SELECTED_CATEGORY) {\n    edges {\n      node {\n        id\n      }\n      cursor\n    }\n  }\n}\n",
+    "text": "query ArticleListComponentQuery(\n  $SELECTED_CATEGORY: ID\n) {\n  ArticleList(searchByCategory: $SELECTED_CATEGORY) {\n    edges {\n      node {\n        id\n        ...ArticleComponent_article\n      }\n      cursor\n    }\n  }\n}\n\nfragment ArticleComponent_article on Article {\n  id\n  title\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e0bb62c8fff01f930c00a7b1a51d49ea';
+(node/*: any*/).hash = 'cbafe3d4294670d14d47aea5213ff581';
 
 module.exports = node;

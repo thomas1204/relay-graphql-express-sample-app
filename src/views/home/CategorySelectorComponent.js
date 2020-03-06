@@ -16,15 +16,24 @@ class CategorySelector extends Component {
 		const CATEGORY_LIST = this.props.CategoryList.edges;
 		return (
 			<div className="categorySelector mb-3">
-				<select className="form-control" value={this.props.selectedCategory} onChange={e => this.HandleCategoryChange(e)}>
-					{
-						CATEGORY_LIST.map((category, index) => (
-							<option value={category.node.id} key={index}>
-								{category.node.title}
-							</option>
-						))
-					}
-				</select>
+				<div className="row">
+					<div className="col-lg-8">
+						<select className="form-control" value={this.props.selectedCategory} onChange={e => this.HandleCategoryChange(e)}>
+							{
+								CATEGORY_LIST.map((category, index) => (
+									<option value={category.node.id} key={index}>
+										{category.node.title}
+									</option>
+								))
+							}
+						</select>
+					</div>
+					<div className="col-lg-4">
+						<button type="button" className="btn btn-dark btn-block">
+							Add
+						</button>
+					</div>
+				</div>
 			</div>
 		)
 	}

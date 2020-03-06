@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import {graphql, QueryRenderer} from 'react-relay';
 import RelayEnvironment from "../../relay.environment";
 
+import ArticleComponent from './ArticleComponent';
+
 
 class ArticleListComponent extends Component {
 	
@@ -11,9 +13,9 @@ class ArticleListComponent extends Component {
 	// 	this.props.SelectCategory(FIRST_CATEGORY_ID);
 	// }
 	
-	HandleArticleChange = (event) => {
-		this.props.SelectCategory(event.target.value);
-	};
+	// HandleArticleChange = (event) => {
+	// 	this.props.SelectCategory(event.target.value);
+	// };
 	
 	
 	render() {
@@ -29,6 +31,7 @@ class ArticleListComponent extends Component {
 						    edges{
 						      node {
 						        id
+						        ...ArticleComponent_article
 						      }
 						      cursor
 						    }
@@ -47,12 +50,11 @@ class ArticleListComponent extends Component {
 						return (
 							<div className="articlesList">
 								{
-									props.ArticleList.edges.map((node, index) => (
-										<div className="article" key={index}>
-											<button>
-												Tyke
-											</button>
-										</div>
+									props.ArticleList.edges.map((edge, index) => (
+										<ArticleComponent
+											key={index}
+											article={edge.node}
+										/>
 									))
 								}
 							</div>

@@ -82,7 +82,7 @@ class HomeView extends Component {
 														{
 															(this.state.selectedCategory !== "") && <ArticleList
 																selectedCategory={this.state.selectedCategory}
-																SelectArticle={this.props.SelectArticle}
+																SelectArticle={this.SelectArticle}
 															/>
 														}
 													</div>
