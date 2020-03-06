@@ -11,7 +11,7 @@ input AddArticleInput {
 }
 
 type AddArticlePayload {
-  category: articlesEdge
+  article: articlesEdge
   clientMutationId: String
 }
 

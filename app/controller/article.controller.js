@@ -72,7 +72,7 @@ const AddArticle = mutationWithClientMutationId(
 		description: "Adds new article",
 		inputFields: AddArticleInput,
 		outputFields: {
-			category: {
+			article: {
 				type: ArticleEdge,
 				resolve: (payload) => {
 					return new Promise((resolve, reject) => {
