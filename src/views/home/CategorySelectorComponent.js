@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import AddArticleButton from './AddArticleButton';
 
 class CategorySelector extends Component {
 	
@@ -14,6 +14,7 @@ class CategorySelector extends Component {
 	
 	render() {
 		const CATEGORY_LIST = this.props.CategoryList.edges;
+		const FIRST_CATEGORY_ID = this.props.CategoryList.edges[0].node.id;
 		return (
 			<div className="categorySelector mb-3">
 				<div className="row">
@@ -29,9 +30,9 @@ class CategorySelector extends Component {
 						</select>
 					</div>
 					<div className="col-lg-4">
-						<button type="button" className="btn btn-dark btn-block">
-							Add
-						</button>
+						<AddArticleButton
+							categoryId = {FIRST_CATEGORY_ID}
+						/>
 					</div>
 				</div>
 			</div>
