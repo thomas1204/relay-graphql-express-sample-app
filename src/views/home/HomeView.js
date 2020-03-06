@@ -16,7 +16,12 @@ import RelayEnvironment from "../../relay.environment";
 class HomeView extends Component {
 	
 	state = {
-		selectedCategory: null
+		selectedCategory: "",
+		selectedArticle: null
+	};
+	
+	SelectCategory = (categoryId) => {
+		this.setState({selectedCategory: categoryId})
 	};
 	
 	render() {
@@ -62,12 +67,19 @@ class HomeView extends Component {
 											<div className="row h-100">
 												<div className="col-lg-4 h-100">
 													<div id="sidebar" className="h-100">
-														<CategorySelector CategoryList = {props.CategoryList} />
-														<ArticleList/>
+														
+														{/* Category select box*/}
+														<CategorySelector
+															CategoryList={props.CategoryList}
+															SelectCategory={this.SelectCategory}
+															selectedCategory={this.state.selectedCategory}
+														/>
+														
+														{(this.state.selectedCategory !== "") && <ArticleList/>}
 													</div>
 												</div>
 												<div className="col-lg-8 h-100">
-													<Main/>
+													{(this.state.selectedArticle) && <Main/>}
 												</div>
 											</div>
 										)
@@ -75,7 +87,7 @@ class HomeView extends Component {
 								}
 							/>
 							{/* Parent query renderer */}
-							
+						
 						</div>
 					</div>
 				</div>
