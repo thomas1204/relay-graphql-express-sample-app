@@ -5,7 +5,7 @@ import './home.view.style.css'
 // Components
 import Navbar from './navbar.component';
 import CategorySelector from './CategorySelectorComponent';
-import ArticleList from './articleList.component';
+import ArticleList from './ArticleListComponent';
 import Main from './main.component';
 
 // Relay
@@ -75,7 +75,10 @@ class HomeView extends Component {
 															selectedCategory={this.state.selectedCategory}
 														/>
 														
-														{(this.state.selectedCategory !== "") && <ArticleList/>}
+														{
+															(this.state.selectedCategory !== "") &&
+															<ArticleList selectedCategory = {this.state.selectedCategory} />
+														}
 													</div>
 												</div>
 												<div className="col-lg-8 h-100">
