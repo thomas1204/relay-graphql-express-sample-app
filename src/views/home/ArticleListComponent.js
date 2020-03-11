@@ -4,6 +4,7 @@ import {graphql, QueryRenderer} from 'react-relay';
 import RelayEnvironment from "../../relay.environment";
 
 import ArticleComponent from './ArticleComponent';
+import LoaderComponent from './LoaderComponent';
 
 
 class ArticleListComponent extends Component {
@@ -45,7 +46,7 @@ class ArticleListComponent extends Component {
 							return <div>Error!</div>;
 						}
 						if (!props) {
-							return <div>Loading</div>;
+							return <LoaderComponent />;
 						}
 						return (
 							<div className="articlesList">

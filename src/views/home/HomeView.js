@@ -7,6 +7,7 @@ import Navbar from './navbar.component';
 import CategorySelector from './CategorySelectorComponent';
 import ArticleList from './ArticleListComponent';
 import Main from './main.component';
+import LoaderComponent from './LoaderComponent';
 
 // Relay
 import {graphql, QueryRenderer} from 'react-relay';
@@ -65,7 +66,7 @@ class HomeView extends Component {
 											return <div>Error!</div>;
 										}
 										if (!props) {
-											return <div>Loading</div>;
+											return <LoaderComponent />
 										}
 										return (
 											<div className="row h-100">

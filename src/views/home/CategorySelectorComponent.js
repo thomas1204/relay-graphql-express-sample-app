@@ -14,7 +14,6 @@ class CategorySelector extends Component {
 	
 	render() {
 		const CATEGORY_LIST = this.props.CategoryList.edges;
-		const FIRST_CATEGORY_ID = this.props.CategoryList.edges[0].node.id;
 		return (
 			<div className="categorySelector mb-3">
 				<div className="row">
