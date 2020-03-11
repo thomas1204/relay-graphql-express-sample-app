@@ -47,7 +47,7 @@ class HomeView extends Component {
 								query={
 									graphql`
 										query HomeViewQuery {
-											CategoryList{
+											CategoryList {
 												edges{
 										      node{
 										        id

@@ -27,7 +27,7 @@ class ArticleListComponent extends Component {
 				query={
 					graphql`
 						query ArticleListComponentQuery($SELECTED_CATEGORY: ID) {
-							ArticleList(searchByCategory: $SELECTED_CATEGORY){
+							ArticleList(first: 100, searchByCategory: $SELECTED_CATEGORY) @connection(key: "Article_ArticleList", filters: []) {
 						    edges{
 						      node {
 						        id

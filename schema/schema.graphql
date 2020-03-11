@@ -5,7 +5,7 @@ schema {
 
 input AddArticleInput {
   title: String!
-  content: String!
+  content: String
   category: ID!
   clientMutationId: String
 }

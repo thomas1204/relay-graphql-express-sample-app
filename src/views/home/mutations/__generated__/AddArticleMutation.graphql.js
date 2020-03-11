@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash d708846a45979401b2662da47b8b71be
+ * @relayHash 20390372bdfe5d268ed8988f2b82ed45
  */
 
 /* eslint-disable */
@@ -11,7 +11,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 export type AddArticleInput = {|
   title: string,
-  content: string,
+  content?: ?string,
   category: string,
   clientMutationId?: ?string,
 |};

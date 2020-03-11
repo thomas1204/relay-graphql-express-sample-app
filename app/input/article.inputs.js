@@ -7,7 +7,7 @@ const {
 
 const AddArticleInput = {
 	title: {type: new GraphQLNonNull(GraphQLString)},
-	content: {type: new GraphQLNonNull(GraphQLString)},
+	content: {type: GraphQLString},
 	category: {type: new GraphQLNonNull(GraphQLID)},
 };
 

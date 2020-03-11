@@ -1,7 +1,7 @@
 html, body, #root {
 	font-family: 'Lato', sans-serif;
 	background-color: #ffffff;
-	color: #484848;
+	color: #484848 !important;
 	height: 100vh;
 }
 
@@ -51,5 +51,32 @@ html, body, #root {
 }
 
 #addCategoryModal .modal-content {
-	padding: 20px;
+	padding: 20px 30px 30px 30px;
+}
+
+#addCategoryModal .modal-content .head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#addCategoryModal .modal-content .head .titleSection {
+	display: inline-flex;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#addCategoryModal .modal-content .head .closeSection {
+	display: inline-flex;
+}
+
+#addCategoryModal .modal-content .head .closeSection button {
+	border: 0;
+	font-size: 18px;
+	font-weight: bold;
+	outline: none !important;
+}
+
+#addCategoryModal .modal-content .body {
+	padding-top: 20px;
 }
