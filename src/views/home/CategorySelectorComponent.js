@@ -31,7 +31,7 @@ class CategorySelector extends Component {
 					</div>
 					<div className="col-lg-4">
 						<AddArticleButton
-							categoryId = {FIRST_CATEGORY_ID}
+							categoryId = {this.props.selectedCategory}
 						/>
 					</div>
 				</div>
