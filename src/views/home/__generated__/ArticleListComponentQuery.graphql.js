@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash bb616337a3908b00940037b38bc1674f
+ * @relayHash 0f087688d251d2df7f8f16a7028abfa3
  */
 
 /* eslint-disable */
@@ -54,6 +54,7 @@ query ArticleListComponentQuery(
 fragment ArticleComponent_article on Article {
   id
   title
+  content
 }
 */
 
@@ -217,6 +218,13 @@ return {
                     "args": null,
                     "storageKey": null
                   },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "content",
+                    "args": null,
+                    "storageKey": null
+                  },
                   (v2/*: any*/)
                 ]
               },
@@ -241,7 +249,7 @@ return {
     "operationKind": "query",
     "name": "ArticleListComponentQuery",
     "id": null,
-    "text": "query ArticleListComponentQuery(\n  $SELECTED_CATEGORY: ID\n) {\n  ArticleList(first: 100, searchByCategory: $SELECTED_CATEGORY) {\n    edges {\n      node {\n        id\n        ...ArticleComponent_article\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment ArticleComponent_article on Article {\n  id\n  title\n}\n",
+    "text": "query ArticleListComponentQuery(\n  $SELECTED_CATEGORY: ID\n) {\n  ArticleList(first: 100, searchByCategory: $SELECTED_CATEGORY) {\n    edges {\n      node {\n        id\n        ...ArticleComponent_article\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment ArticleComponent_article on Article {\n  id\n  title\n  content\n}\n",
     "metadata": {
       "connection": [
         {

@@ -80,3 +80,20 @@ html, body, #root {
 #addCategoryModal .modal-content .body {
 	padding-top: 20px;
 }
+
+#main .titleSection {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+}
+
+#main .titleSection .title {
+	font-weight: bold;
+}
+
+#main .titleSection .titleEditButton button {
+	border: 0;
+	font-size: 18px;
+	color: #484848;
+}

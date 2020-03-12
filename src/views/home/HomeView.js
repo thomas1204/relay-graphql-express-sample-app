@@ -6,7 +6,7 @@ import './home.view.style.css'
 import Navbar from './navbar.component';
 import CategorySelector from './CategorySelectorComponent';
 import ArticleList from './ArticleListComponent';
-import Main from './main.component';
+import Main from './MainComponent';
 import LoaderComponent from './LoaderComponent';
 
 // Relay
@@ -22,7 +22,10 @@ class HomeView extends Component {
 	};
 	
 	SelectCategory = (selectedCategory) => {
-		this.setState({selectedCategory})
+		this.setState({
+			selectedCategory,
+			selectedArticle: null
+		})
 	};
 	
 	SelectArticle = (selectedArticle) => {
@@ -66,7 +69,7 @@ class HomeView extends Component {
 											return <div>Error!</div>;
 										}
 										if (!props) {
-											return <LoaderComponent />
+											return <LoaderComponent/>
 										}
 										return (
 											<div className="row h-100">
@@ -89,7 +92,11 @@ class HomeView extends Component {
 													</div>
 												</div>
 												<div className="col-lg-8 h-100">
-													{(this.state.selectedArticle) && <Main/>}
+													{
+														(this.state.selectedArticle) && <Main
+															selectedArticle={this.state.selectedArticle}
+														/>
+													}
 												</div>
 											</div>
 										)

@@ -8,17 +8,6 @@ import LoaderComponent from './LoaderComponent';
 
 
 class ArticleListComponent extends Component {
-	
-	// componentDidMount() {
-	// 	const FIRST_CATEGORY_ID = this.props.CategoryList.edges[0].node.id;
-	// 	this.props.SelectCategory(FIRST_CATEGORY_ID);
-	// }
-	
-	// HandleArticleChange = (event) => {
-	// 	this.props.SelectCategory(event.target.value);
-	// };
-	
-	
 	render() {
 		const SELECTED_CATEGORY = this.props.selectedCategory;
 		return (
@@ -46,7 +35,7 @@ class ArticleListComponent extends Component {
 							return <div>Error!</div>;
 						}
 						if (!props) {
-							return <LoaderComponent />;
+							return <LoaderComponent/>;
 						}
 						return (
 							<div className="articlesList">
@@ -55,6 +44,7 @@ class ArticleListComponent extends Component {
 										<ArticleComponent
 											key={index}
 											article={edge.node}
+											HandleArticleChange={this.props.SelectArticle}
 										/>
 									))
 								}

@@ -14,6 +14,7 @@ declare export opaque type ArticleComponent_article$fragmentType: ArticleCompone
 export type ArticleComponent_article = {|
   +id: string,
   +title: ?string,
+  +content: ?string,
   +$refType: ArticleComponent_article$ref,
 |};
 export type ArticleComponent_article$data = ArticleComponent_article;
@@ -45,10 +46,17 @@ const node/*: ReaderFragment*/ = {
       "name": "title",
       "args": null,
       "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "content",
+      "args": null,
+      "storageKey": null
     }
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = '36672c14f4f35fdf27fcb975a9f2ce80';
+(node/*: any*/).hash = '9a12ebb4939ada55d64161f3b84f433a';
 
 module.exports = node;

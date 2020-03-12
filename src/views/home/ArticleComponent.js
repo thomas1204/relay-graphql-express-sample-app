@@ -7,7 +7,7 @@ class ArticleComponent extends Component {
 		const ARTICLE = this.props.article;
 		return (
 			<div className="article">
-				<button>
+				<button onClick={()=>this.props.HandleArticleChange(ARTICLE)}>
 					{ARTICLE.title}
 				</button>
 			</div>
@@ -22,6 +22,7 @@ export default createFragmentContainer(
       fragment ArticleComponent_article on Article {
 		      id
           title
+		      content
       }
 		`
 	}
