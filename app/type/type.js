@@ -17,13 +17,9 @@ const {
 
 let GlobalID;
 
-const FETCH_NODE_DETAILS = (collectionName, _id) => {
-	return new Promise((resolve, reject) => {
-		DB.FIND(collectionName, {_id: ObjectID(_id)}, (err, data) => {
-			if (err) reject(err);
-			resolve(data)
-		})
-	})
+const FETCH_NODE_DETAILS = async (collectionName, _id) => {
+	const DATA = await DB.FIND(collectionName, {_id: ObjectID(_id)});
+	return DATA;
 };
 
 
@@ -102,12 +98,8 @@ const ArticleType = new GraphQLObjectType({
 			type: CategoryType,
 			description: "Details of category",
 			resolve: (obj) => {
-				return new Promise((resolve, reject) => {
-					DB.FIND(COLLECTIONS.CATEGORIES, {_id: new ObjectID(obj.category)}, (err, data) => {
-						if (err) reject(err);
-						resolve(data)
-					})
-				});
+				const DATA = DB.FIND(COLLECTIONS.CATEGORIES, {_id: new ObjectID(obj.category)});
+				return DATA;
 			}
 		}
 	}),
