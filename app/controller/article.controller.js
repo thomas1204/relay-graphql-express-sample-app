@@ -9,7 +9,7 @@ const {
 const {
 	connectionArgs,
 	connectionDefinitions,
-	connectionFromPromisedArray,
+	connectionFromArray,
 	mutationWithClientMutationId,
 	offsetToCursor,
 	fromGlobalId
@@ -45,24 +45,14 @@ const ArticleList = {
 		},
 		...connectionArgs
 	},
-	resolve: (_, args, req) => {
-		return connectionFromPromisedArray(
-			new Promise((resolve, reject) => {
-				let cond = {};
-				if (args.searchByCategory !== undefined) {
-					const GLOBAL_ID = fromGlobalId(args.searchByCategory);
-					cond['category'] = GLOBAL_ID.id
-				}
-				DB.GET(COLLECTIONS.ARTICLES, cond, (err, docs) => {
-					if (err) {
-						reject(err)
-					} else {
-						resolve(docs)
-					}
-				});
-			}),
-			args
-		)
+	resolve: async (_, args) => {
+		let cond = {};
+		if (args.searchByCategory !== undefined) {
+			const GLOBAL_ID = fromGlobalId(args.searchByCategory);
+			cond['category'] = GLOBAL_ID.id
+		}
+		const ARTICLES_LIST = await DB.GET(COLLECTIONS.ARTICLES, cond);
+		return connectionFromArray(ARTICLES_LIST, args);
 	}
 };
 
@@ -75,39 +65,24 @@ const AddArticle = mutationWithClientMutationId(
 		outputFields: {
 			article: {
 				type: ArticleEdge,
-				resolve: (payload) => {
-					return new Promise((resolve, reject) => {
-						DB.COUNT(COLLECTIONS.ARTICLES, {}, (err, count) => {
-							if (err) {
-								reject(err)
-							} else {
-								resolve({
-									cursor: offsetToCursor(count - 1),
-									node: {
-										_id: payload._id,
-										title: payload.title,
-										content: payload.content,
-										category: payload.category,
-									}
-								});
-							}
-						});
-					})
+				resolve: async (payload) => {
+					const COUNT = DB.COUNT(COLLECTIONS.ARTICLES, {});
+					return {
+						cursor: offsetToCursor(COUNT - 1),
+						node: {
+							_id: payload._id,
+							title: payload.title,
+							content: payload.content,
+							category: payload.category,
+						}
+					}
 				}
 			}
 		},
-		mutateAndGetPayload: (articleInput) => {
-			return new Promise((resolve, reject) => {
-				const GLOBAL_ID = fromGlobalId(articleInput.category);
-				articleInput.category = new ObjectID(GLOBAL_ID.id);
-				DB.INSERT(COLLECTIONS.ARTICLES, articleInput, (err, doc) => {
-					if (err) {
-						reject(err)
-					} else {
-						resolve(doc)
-					}
-				})
-			})
+		mutateAndGetPayload: async (articleInput) => {
+			const GLOBAL_ID = fromGlobalId(articleInput.category);
+			articleInput.category = new ObjectID(GLOBAL_ID.id);
+			return await DB.INSERT(COLLECTIONS.ARTICLES, articleInput);
 		}
 	}
 );
