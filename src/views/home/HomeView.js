@@ -17,14 +17,14 @@ import RelayEnvironment from "../../relay.environment";
 class HomeView extends Component {
 	
 	state = {
-		selectedCategory: "",
-		selectedArticle: null
+		selectedCategory: "0",
+		selectedArticle: "0"
 	};
 	
 	SelectCategory = (selectedCategory) => {
 		this.setState({
 			selectedCategory,
-			selectedArticle: null
+			selectedArticle: "0"
 		})
 	};
 	
@@ -79,25 +79,25 @@ class HomeView extends Component {
 														{/* Category select box*/}
 														<CategorySelector
 															CategoryList={props.CategoryList}
-															SelectCategory={this.SelectCategory}
 															selectedCategory={this.state.selectedCategory}
+															SelectCategory={this.SelectCategory}
 														/>
 														
-														{
-															(this.state.selectedCategory !== "") && <ArticleList
-																selectedCategory={this.state.selectedCategory}
-																SelectArticle={this.SelectArticle}
-															/>
-														}
+														{/*{*/}
+														{/*	<ArticleList*/}
+														{/*		selectedCategory={this.state.selectedCategory}*/}
+														{/*		SelectArticle={this.SelectArticle}*/}
+														{/*	/>*/}
+														{/*}*/}
 													</div>
 												</div>
-												<div className="col-lg-8 h-100">
-													{
-														(this.state.selectedArticle) && <Main
-															selectedArticle={this.state.selectedArticle}
-														/>
-													}
-												</div>
+												{/*<div className="col-lg-8 h-100">*/}
+												{/*	{*/}
+												{/*		(this.state.selectedArticle) && <Main*/}
+												{/*			selectedArticle={this.state.selectedArticle}*/}
+												{/*		/>*/}
+												{/*	}*/}
+												{/*</div>*/}
 											</div>
 										)
 									}

@@ -3,10 +3,6 @@ import AddArticleButton from './AddArticleButton';
 
 class CategorySelector extends Component {
 	
-	componentDidMount() {
-		const FIRST_CATEGORY_ID = this.props.CategoryList.edges[0].node.id;
-		this.props.SelectCategory(FIRST_CATEGORY_ID);
-	}
 	
 	HandleCategoryChange = (event) => {
 		this.props.SelectCategory(event.target.value);
@@ -21,7 +17,7 @@ class CategorySelector extends Component {
 						<select className="form-control" value={this.props.selectedCategory} onChange={e => this.HandleCategoryChange(e)}>
 							{
 								CATEGORY_LIST.map((category, index) => (
-									<option value={category.node.id} key={index}>
+									<option value={index} key={index}>
 										{category.node.title}
 									</option>
 								))
@@ -30,7 +26,7 @@ class CategorySelector extends Component {
 					</div>
 					<div className="col-lg-4">
 						<AddArticleButton
-							categoryId = {this.props.selectedCategory}
+							categoryId = {CATEGORY_LIST[this.props.selectedCategory].node.id}
 						/>
 					</div>
 				</div>
