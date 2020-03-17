@@ -50,34 +50,34 @@ html, body, #root {
 	padding-top: 10px;
 }
 
-#addCategoryModal .modal-content {
+.customModal .modal-content {
 	padding: 20px 30px 30px 30px;
 }
 
-#addCategoryModal .modal-content .head {
+.customModal .modal-content .head {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
 
-#addCategoryModal .modal-content .head .titleSection {
+.customModal .modal-content .head .titleSection {
 	display: inline-flex;
 	font-size: 16px;
 	font-weight: bold;
 }
 
-#addCategoryModal .modal-content .head .closeSection {
+.customModal .modal-content .head .closeSection {
 	display: inline-flex;
 }
 
-#addCategoryModal .modal-content .head .closeSection button {
+.customModal .modal-content .head .closeSection button {
 	border: 0;
 	font-size: 18px;
 	font-weight: bold;
 	outline: none !important;
 }
 
-#addCategoryModal .modal-content .body {
+.customModal .modal-content .body {
 	padding-top: 20px;
 }
 
