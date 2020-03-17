@@ -52,11 +52,14 @@ const CategoryList = {
 			$options: 'i'
 		};
 		const CATEGORY_LIST = await DB.GET(COLLECTIONS.CATEGORIES, cond);
-		return connectionFromArray(CATEGORY_LIST,args);
+		return connectionFromArray(CATEGORY_LIST, args);
 	}
 };
 
-
+/**
+ * Mutation - Adds category to DB
+ * Returns the newly added doc
+ */
 const AddCategory = mutationWithClientMutationId(
 	{
 		name: "AddCategory",
@@ -65,33 +68,18 @@ const AddCategory = mutationWithClientMutationId(
 		outputFields: {
 			category: {
 				type: CategoryEdge,
-				resolve: (payload) => {
-					return new Promise((resolve, reject) => {
-						DB.COUNT(COLLECTIONS.CATEGORIES, {}, (err, count) => {
-							if (err) {
-								reject(err)
-							} else {
-								const category = HandlePayload(payload);
-								resolve({
-									cursor: offsetToCursor(count - 1),
-									node: category
-								});
-							}
-						});
-					})
+				resolve: async (payload) => {
+					const COUNT = await DB.COUNT(COLLECTIONS.CATEGORIES, {});
+					return {
+						cursor: offsetToCursor(COUNT - 1),
+						node: HandlePayload(payload)
+					}
 				}
 			}
 		},
-		mutateAndGetPayload: (category) => {
-			return new Promise((resolve, reject) => {
-				DB.INSERT(COLLECTIONS.CATEGORIES, category, (err, doc) => {
-					if (err) {
-						reject(err)
-					} else {
-						resolve(doc)
-					}
-				})
-			})
+		mutateAndGetPayload: async (category) => {
+			const DOC = await DB.INSERT(COLLECTIONS.CATEGORIES, category);
+			return DOC;
 		}
 	}
 );

@@ -56,7 +56,10 @@ const ArticleList = {
 	}
 };
 
-
+/**
+ * Mutation - Adds article to DB
+ * Returns the newly added doc
+ */
 const AddArticle = mutationWithClientMutationId(
 	{
 		name: "AddArticle",
