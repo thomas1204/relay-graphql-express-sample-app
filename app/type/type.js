@@ -5,6 +5,7 @@ const DB = require('../model/db');
 const {
 	GraphQLObjectType,
 	GraphQLString,
+	GraphQLList
 } = require('graphql');
 
 const {
@@ -71,20 +72,10 @@ const CategoryType = new GraphQLObjectType({
 			resolve: (obj) => obj.title
 		},
 		articles: {
-			type: ArticleType,
+			type: new GraphQLList(ArticleType),
 			description: "Fetches list of articles that belongs to this category",
-			resolve: (obj) => {
-				return new Promise((resolve, reject) => {
-					DB.GET(COLLECTIONS.ARTICLES, {category: ObjectID(obj._id)}, (err, docs) => {
-						console.log('err', err);
-						console.log('docs', docs);
-						if (err) {
-							reject(err)
-						} else {
-							resolve(docs)
-						}
-					});
-				});
+			resolve: async (obj) => {
+				return await DB.GET(COLLECTIONS.ARTICLES, {category: ObjectID(obj._id)});
 			}
 		}
 	}),
@@ -106,6 +97,13 @@ const ArticleType = new GraphQLObjectType({
 			type: GraphQLString,
 			description: "Content of article",
 			resolve: (obj) => obj.content
+		},
+		category: {
+			type: CategoryType,
+			description: "Details of category",
+			resolve: (obj) => {
+			
+			}
 		}
 	}),
 	interfaces: [nodeInterface]

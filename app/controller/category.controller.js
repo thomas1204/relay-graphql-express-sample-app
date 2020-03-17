@@ -8,7 +8,7 @@ const {
 const {
 	connectionArgs,
 	connectionDefinitions,
-	connectionFromPromisedArray,
+	connectionFromArray,
 	mutationWithClientMutationId,
 	offsetToCursor
 } = require('graphql-relay');
@@ -45,24 +45,14 @@ const CategoryList = {
 		},
 		...connectionArgs
 	},
-	resolve: (_, args, req) => {
-		return connectionFromPromisedArray(
-			new Promise((resolve, reject) => {
-				let cond = {};
-				if (args.searchByTitle !== undefined) cond['title'] = {
-					"$regex": `^${args.searchByTitle}`,
-					$options: 'i'
-				};
-				DB.GET(COLLECTIONS.CATEGORIES, cond, (err, docs) => {
-					if (err) {
-						reject(err)
-					} else {
-						resolve(docs)
-					}
-				});
-			}),
-			args
-		)
+	resolve: async (_, args) => {
+		let cond = {};
+		if (args.searchByTitle !== undefined) cond['title'] = {
+			"$regex": `^${args.searchByTitle}`,
+			$options: 'i'
+		};
+		const CATEGORY_LIST = await DB.GET(COLLECTIONS.CATEGORIES, cond);
+		return connectionFromArray(CATEGORY_LIST,args);
 	}
 };
 

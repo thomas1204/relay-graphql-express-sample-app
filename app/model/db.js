@@ -23,18 +23,12 @@ const FIND = (collection, query, callback) => {
  * Returns an array of documents from a collection based on query
  * @param collection
  * @param query
- * @param callback
  * @constructor
  */
-const GET = (collection, query, callback) => {
+const GET = async (collection, query) => {
 	const db = MongoDb.getDb();
-	db.collection(collection).find(query, {}, function (error, result) {
-		if (error) {
-			callback(error, null);
-		} else {
-			callback(null, result.toArray());
-		}
-	})
+	const LIST = await db.collection(collection).find(query, {});
+	return LIST.toArray();
 };
 
 
@@ -86,7 +80,7 @@ const DELETE = (collection, query, callback) => {
  */
 const UPDATE = (collection, query, doc, callback) => {
 	const db = MongoDb.getDb();
-	db.collection(collection).findOneAndUpdate(query, doc, {returnOriginal:false}, function (error, result) {
+	db.collection(collection).findOneAndUpdate(query, doc, {returnOriginal: false}, function (error, result) {
 		if (error) {
 			callback(error, null);
 		} else {
