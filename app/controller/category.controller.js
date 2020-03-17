@@ -27,7 +27,7 @@ const {
 	edgeType: CategoryEdge
 } = connectionDefinitions({
 	name: COLLECTIONS.CATEGORIES,
-	nodeType: CategoryType()
+	nodeType: CategoryType
 });
 
 /**

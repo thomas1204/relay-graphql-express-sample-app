@@ -10,10 +10,7 @@ const {
 const {
 	fromGlobalId,
 	globalIdField,
-	nodeDefinitions,
-	connectionDefinitions,
-	connectionArgs,
-	connectionFromPromisedArray
+	nodeDefinitions
 } = require('graphql-relay');
 
 
@@ -63,73 +60,56 @@ const GET_NODE_FIELD = () => {
 const {nodeInterface, nodeField} = nodeDefinitions(GET_NODE_INTERFACE, GET_NODE_FIELD);
 
 
-const {
-	connectionType: ArticleConnection,
-	edgeType: ArticleEdge
-} = connectionDefinitions({
-	name: COLLECTIONS.ARTICLES,
-	nodeType: ArticleType()
+const CategoryType = new GraphQLObjectType({
+	name: "Category",
+	description: "Details of a category",
+	fields: () => ({
+		id: globalIdField(COLLECTIONS.CATEGORIES, (obj) => obj._id),
+		title: {
+			type: GraphQLString,
+			description: "Title of category",
+			resolve: (obj) => obj.title
+		},
+		articles: {
+			type: ArticleType,
+			description: "Fetches list of articles that belongs to this category",
+			resolve: (obj) => {
+				return new Promise((resolve, reject) => {
+					DB.GET(COLLECTIONS.ARTICLES, {category: ObjectID(obj._id)}, (err, docs) => {
+						console.log('err', err);
+						console.log('docs', docs);
+						if (err) {
+							reject(err)
+						} else {
+							resolve(docs)
+						}
+					});
+				});
+			}
+		}
+	}),
+	interfaces: [nodeInterface]
 });
 
 
-function CategoryType(name = "Category") {
-	return new GraphQLObjectType({
-		name: name,
-		description: "Details of a category",
-		fields: () => ({
-			id: globalIdField(COLLECTIONS.CATEGORIES, (obj) => obj._id),
-			title: {
-				type: GraphQLString,
-				description: "Title of category",
-				resolve: (obj) => obj.title
-			},
-			articles: {
-				type: ArticleConnection,
-				description: "Fetches list of articles that belongs to this category",
-				args: {
-					...connectionArgs
-				},
-				resolve: (obj, args) => {
-					return connectionFromPromisedArray(
-						new Promise((resolve, reject) => {
-							DB.GET(COLLECTIONS.ARTICLES, {category: ObjectID(obj._id)}, (err, docs) => {
-								if (err) {
-									reject(err)
-								} else {
-									resolve(docs)
-								}
-							});
-						}),
-						args
-					)
-				}
-			}
-		}),
-		interfaces: [nodeInterface]
-	})
-}
-
-
-function ArticleType() {
-	return new GraphQLObjectType({
-		name: 'Article',
-		description: "Details of a articles",
-		fields: () => ({
-			id: globalIdField(COLLECTIONS.ARTICLES, (obj) => obj._id),
-			title: {
-				type: GraphQLString,
-				description: "Title of article",
-				resolve: (obj) => obj.title
-			},
-			content: {
-				type: GraphQLString,
-				description: "Content of article",
-				resolve: (obj) => obj.content
-			}
-		}),
-		interfaces: [nodeInterface]
-	})
-}
+const ArticleType = new GraphQLObjectType({
+	name: 'Article',
+	description: "Details of a articles",
+	fields: () => ({
+		id: globalIdField(COLLECTIONS.ARTICLES, (obj) => obj._id),
+		title: {
+			type: GraphQLString,
+			description: "Title of article",
+			resolve: (obj) => obj.title
+		},
+		content: {
+			type: GraphQLString,
+			description: "Content of article",
+			resolve: (obj) => obj.content
+		}
+	}),
+	interfaces: [nodeInterface]
+});
 
 
 module.exports = {
