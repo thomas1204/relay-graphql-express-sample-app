@@ -7,7 +7,7 @@ class ArticleComponent extends Component {
 		const ARTICLE = this.props.article;
 		return (
 			<div className="article">
-				<button onClick={()=>this.props.HandleArticleChange(ARTICLE)}>
+				<button onClick={()=>this.props.HandleArticleChange(ARTICLE.id)}>
 					{ARTICLE.title}
 				</button>
 			</div>

@@ -9,7 +9,7 @@ import LoaderComponent from './LoaderComponent';
 
 class ArticleListComponent extends Component {
 	render() {
-		const SELECTED_CATEGORY = this.props.selectedCategory;
+		const SELECTED_CATEGORY = this.props.CategoryList.edges[this.props.selectedCategory].node.id;
 		return (
 			<QueryRenderer
 				environment={RelayEnvironment}
@@ -43,6 +43,7 @@ class ArticleListComponent extends Component {
 									props.ArticleList.edges.map((edge, index) => (
 										<ArticleComponent
 											key={index}
+											index={index}
 											article={edge.node}
 											HandleArticleChange={this.props.SelectArticle}
 										/>

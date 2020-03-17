@@ -17,7 +17,7 @@ import RelayEnvironment from "../../relay.environment";
 class HomeView extends Component {
 	
 	state = {
-		selectedCategory: "",
+		selectedCategory: "0",
 		selectedArticle: null
 	};
 	
@@ -84,11 +84,14 @@ class HomeView extends Component {
 														/>
 														
 														{
-															(this.state.selectedCategory !== "") && <ArticleList
+															(props.CategoryList.edges.length > 0) && <ArticleList
 																selectedCategory={this.state.selectedCategory}
+																CategoryList={props.CategoryList}
 																SelectArticle={this.SelectArticle}
 															/>
 														}
+														
+														
 													</div>
 												</div>
 												<div className="col-lg-8 h-100">

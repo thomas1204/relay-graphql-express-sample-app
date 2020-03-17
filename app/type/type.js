@@ -5,6 +5,7 @@ const DB = require('../model/db');
 const {
 	GraphQLObjectType,
 	GraphQLString,
+	GraphQLList
 } = require('graphql');
 
 const {
@@ -36,11 +37,11 @@ const GET_NODE_INTERFACE = (globalId) => {
 	GlobalID = fromGlobalId(globalId);
 	
 	if (GlobalID.type === COLLECTIONS.CATEGORIES) {
-		FETCH_NODE_DETAILS(COLLECTIONS.CATEGORIES, GlobalID.id);
+		return FETCH_NODE_DETAILS(COLLECTIONS.CATEGORIES, GlobalID.id);
 	}
 	
 	if (GlobalID.type === COLLECTIONS.ARTICLES) {
-		FETCH_NODE_DETAILS(COLLECTIONS.ARTICLES, GlobalID.id);
+		return FETCH_NODE_DETAILS(COLLECTIONS.ARTICLES, GlobalID.id);
 	}
 	return null;
 };
@@ -89,19 +90,6 @@ const ArticleType = new GraphQLObjectType({
 			type: GraphQLString,
 			description: "Content of article",
 			resolve: (obj) => obj.content
-		},
-		category: {
-			type: CategoryType,
-			description: "Details of category",
-			resolve: (obj) => {
-				return new Promise((resolve, reject) => {
-					DB.FIND(COLLECTIONS.CATEGORIES, {_id: ObjectID(obj.category)}, (err, data) => {
-						if (err) reject(err);
-						resolve(data)
-					})
-				})
-				
-			}
 		}
 	}),
 	interfaces: [nodeInterface]

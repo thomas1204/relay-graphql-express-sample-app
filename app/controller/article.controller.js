@@ -1,4 +1,5 @@
 const COLLECTIONS = require('../model/collections');
+const ObjectID = require('mongodb').ObjectID;
 const DB = require('../model/db');
 
 const {
@@ -50,7 +51,7 @@ const ArticleList = {
 				let cond = {};
 				if (args.searchByCategory !== undefined) {
 					const GLOBAL_ID = fromGlobalId(args.searchByCategory);
-					cond['category'] = GLOBAL_ID.id
+					cond['category'] = new ObjectID(GLOBAL_ID.id)
 				}
 				DB.GET(COLLECTIONS.ARTICLES, cond, (err, docs) => {
 					if (err) {
@@ -98,7 +99,7 @@ const AddArticle = mutationWithClientMutationId(
 		mutateAndGetPayload: (articleInput) => {
 			return new Promise((resolve, reject) => {
 				const GLOBAL_ID = fromGlobalId(articleInput.category);
-				articleInput.category = GLOBAL_ID.id;
+				articleInput.category = new ObjectID(GLOBAL_ID.id);
 				DB.INSERT(COLLECTIONS.ARTICLES, articleInput, (err, doc) => {
 					if (err) {
 						reject(err)
