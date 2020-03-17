@@ -1,4 +1,5 @@
 const COLLECTIONS = require('../model/collections');
+const ObjectID = require('mongodb').ObjectID;
 const DB = require('../model/db');
 
 const {
@@ -98,7 +99,7 @@ const AddArticle = mutationWithClientMutationId(
 		mutateAndGetPayload: (articleInput) => {
 			return new Promise((resolve, reject) => {
 				const GLOBAL_ID = fromGlobalId(articleInput.category);
-				articleInput.category = GLOBAL_ID.id;
+				articleInput.category = new ObjectID(GLOBAL_ID.id);
 				DB.INSERT(COLLECTIONS.ARTICLES, articleInput, (err, doc) => {
 					if (err) {
 						reject(err)

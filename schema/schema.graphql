@@ -83,6 +83,9 @@ type Category implements Node {
 
   """Title of category"""
   title: String
+
+  """Fetches list of articles that belongs to this category"""
+  articles: [Article]
 }
 
 """An object with an ID"""

@@ -102,7 +102,12 @@ const ArticleType = new GraphQLObjectType({
 			type: CategoryType,
 			description: "Details of category",
 			resolve: (obj) => {
-			
+				return new Promise((resolve, reject) => {
+					DB.FIND(COLLECTIONS.CATEGORIES, {_id: new ObjectID(obj.category)}, (err, data) => {
+						if (err) reject(err);
+						resolve(data)
+					})
+				});
 			}
 		}
 	}),
