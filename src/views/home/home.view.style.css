@@ -81,18 +81,18 @@ html, body, #root {
 	padding-top: 20px;
 }
 
-#main .titleSection {
+#main .articleTitleSection {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 20px;
 }
 
-#main .titleSection .title {
+#main .articleTitleSection .title {
 	font-weight: bold;
 }
 
-#main .titleSection .titleEditButton button {
+#main .articleTitleSection .titleEditButton button {
 	border: 0;
 	font-size: 18px;
 	color: #484848;

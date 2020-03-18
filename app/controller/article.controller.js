@@ -45,7 +45,7 @@ const ArticleList = {
 		},
 		...connectionArgs
 	},
-	resolve: (_, args, req) => {
+	resolve: (_, args) => {
 		return connectionFromPromisedArray(
 			new Promise((resolve, reject) => {
 				let cond = {};

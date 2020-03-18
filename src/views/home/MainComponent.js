@@ -41,7 +41,7 @@ class MainComponent extends Component {
 						const ARTICLE_DETAILS = props.node;
 						return (
 							<div id="main" className="h-100">
-								<div className="titleSection">
+								<div className="articleTitleSection">
 									<div className="title">
 										{ARTICLE_DETAILS.title}
 									</div>
@@ -64,7 +64,7 @@ class MainComponent extends Component {
 											
 											<div className="head">
 												<div className="titleSection">
-													Add Article
+													Edit Article
 												</div>
 												<div className="closeSection">
 													<button onClick={() => this.ToggleEditArticleModal('hide')}>
