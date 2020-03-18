@@ -15,7 +15,7 @@ const mutation = graphql`
 
 function getOptimisticResponse(article) {
 	return {
-  UpdateArticleTitle: {
+		UpdateArticleTitle: {
 			article: {
 				id: article.id,
 				title: article.title,

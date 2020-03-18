@@ -22,7 +22,6 @@ class ArticleDetailsComponent extends Component {
 	
 	
 	render() {
-		console.log('this.props', this.props);
 		const ARTICLE_DETAILS = this.props.articleDetails.node;
 		return (
 			<div id="main" className="h-100">
