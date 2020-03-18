@@ -35,9 +35,6 @@ type Article implements Node {
 
   """Content of article"""
   content: String
-
-  """Details of category"""
-  category: Category
 }
 
 """A connection to a list of items."""
@@ -112,6 +109,9 @@ type RootMutation {
 
   """Adds new article"""
   AddArticle(input: AddArticleInput!): AddArticlePayload
+
+  """Update article title details"""
+  UpdateArticleTitle(input: UpdateArticleTitleInput!): UpdateArticleTitlePayload
 }
 
 type RootQuery {
@@ -140,4 +140,15 @@ type RootQuery {
     """The ID of an object"""
     id: ID!
   ): Node
+}
+
+input UpdateArticleTitleInput {
+  id: ID!
+  title: String!
+  clientMutationId: String
+}
+
+type UpdateArticleTitlePayload {
+  article: Article
+  clientMutationId: String
 }
