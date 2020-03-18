@@ -13,7 +13,8 @@ const Mutations = new GraphQLObjectType({
 	name: "RootMutation",
 	fields: () => ({
 		AddCategory: CATEGORY_CONTROLLER.AddCategory,
-		AddArticle: ARTICLE_CONTROLLER.AddArticle
+		AddArticle: ARTICLE_CONTROLLER.AddArticle,
+		UpdateArticleTitle: ARTICLE_CONTROLLER.UpdateArticleTitle
 	})
 });
 

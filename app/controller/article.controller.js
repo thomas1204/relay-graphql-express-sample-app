@@ -20,7 +20,10 @@ const {
 const {ArticleType} = require('../type/type');
 
 // Article Inputs
-const {AddArticleInput} = require('../input/article.inputs');
+const {
+	AddArticleInput,
+	UpdateArticleTitleInput
+} = require('../input/article.inputs');
 
 const {
 	connectionType: ArticleConnection,
@@ -113,7 +116,38 @@ const AddArticle = mutationWithClientMutationId(
 );
 
 
+const UpdateArticleTitle = mutationWithClientMutationId({
+	name: "UpdateArticleTitle",
+	description: "Update article title details",
+	inputFields: UpdateArticleTitleInput,
+	outputFields: {
+		article: {
+			type: ArticleType,
+			resolve: (payload) => ({
+				_id: payload._id,
+				title: payload.title,
+				content: payload.content,
+				category: payload.category,
+			})
+		}
+	},
+	mutateAndGetPayload: (article) => {
+		return new Promise((resolve, reject) => {
+			const _id = fromGlobalId(article.id).id;
+			DB.UPDATE(COLLECTIONS.ARTICLES, {_id: ObjectID(_id)}, {$set: {title: article.title}}, (err, doc) => {
+				if (err) {
+					reject(err)
+				} else {
+					resolve(doc)
+				}
+			})
+		})
+	}
+});
+
+
 module.exports = {
 	ArticleList,
-	AddArticle
+	AddArticle,
+	UpdateArticleTitle
 };
