@@ -3,7 +3,7 @@ import './home.view.style.css'
 
 
 // Components
-import Navbar from './navbar.component';
+import NavbarComponent from './NavbarComponent';
 import CategorySelector from './CategorySelectorComponent';
 import ArticleList from './ArticleListComponent';
 import Main from './MainComponent';
@@ -37,7 +37,7 @@ class HomeView extends Component {
 			<div id="homeView" className="h-100">
 				
 				{/* NavBar */}
-				<Navbar/>
+				<NavbarComponent/>
 				
 				{/*	wrapper */}
 				<div id="wrapper" className="h-100">
