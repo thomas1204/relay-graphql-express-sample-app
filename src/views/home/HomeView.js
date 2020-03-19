@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './home.view.style.css'
+import './HomeViewStyle.css'
 
 
 // Components
