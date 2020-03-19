@@ -14,7 +14,7 @@ const Mutations = new GraphQLObjectType({
 	fields: () => ({
 		AddCategory: CATEGORY_CONTROLLER.AddCategory,
 		AddArticle: ARTICLE_CONTROLLER.AddArticle,
-		UpdateArticleTitle: ARTICLE_CONTROLLER.UpdateArticleTitle
+		UpdateArticle: ARTICLE_CONTROLLER.UpdateArticle
 	})
 });
 

@@ -2,11 +2,12 @@ import {graphql, commitMutation} from 'react-relay';
 
 
 const mutation = graphql`
-    mutation UpdateArticleTitleMutation($input: UpdateArticleTitleInput!) {
-        UpdateArticleTitle(input: $input) {
+    mutation UpdateArticleMutation($input: UpdateArticleInput!) {
+        UpdateArticle(input: $input) {
             article {
                 id
                 title
+                content
             }
         }
     }
@@ -15,10 +16,9 @@ const mutation = graphql`
 
 function getOptimisticResponse(article) {
 	return {
-		UpdateArticleTitle: {
+		UpdateArticle: {
 			article: {
-				id: article.id,
-				title: article.title,
+				...article
 			}
 		}
 	}
@@ -31,8 +31,7 @@ function commit(environment, article) {
 			mutation,
 			variables: {
 				input: {
-					id: article.id,
-					title: article.title
+					...article
 				}
 			},
 			optimisticResponse: getOptimisticResponse(article)

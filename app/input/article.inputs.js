@@ -11,13 +11,14 @@ const AddArticleInput = {
 	category: {type: new GraphQLNonNull(GraphQLID)},
 };
 
-const UpdateArticleTitleInput = {
+const UpdateArticleInput = {
 	id: {type: new GraphQLNonNull(GraphQLID)},
-	title: {type: new GraphQLNonNull(GraphQLString)}
+	title: {type: new GraphQLNonNull(GraphQLString)},
+	content: {type: new GraphQLNonNull(GraphQLString)}
 };
 
 
 module.exports = {
 	AddArticleInput,
-	UpdateArticleTitleInput
+	UpdateArticleInput
 };
